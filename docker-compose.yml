@@ -16,8 +16,10 @@ services:
     container_name: spring-green
     ports:
       - "8082:8080"  # 내부 8080, 외부 8082로 매핑
-    env_file:
-      - .env
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     depends_on:
       - mysql
     networks:
