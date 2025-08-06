@@ -6,5 +6,5 @@ import com.example.yogijosim.user.domain.User;
 public interface SubscriptionRepository {
 	boolean existsByUserAndRegion(User user, Region region);
 
-	void save(Subscription subscription);
+	Subscription save(Subscription subscription);
 }

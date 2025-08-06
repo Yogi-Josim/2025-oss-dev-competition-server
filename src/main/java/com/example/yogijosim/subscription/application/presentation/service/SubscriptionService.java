@@ -11,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SubscriptionService {
@@ -19,9 +22,10 @@ public class SubscriptionService {
 	private final SubscriptionRepository subscriptionRepository;
 
 	@Transactional
-	public void createSubscription(SubscriptionRequestDto requestDto) {
+	public List<Long> createSubscription(SubscriptionRequestDto requestDto) {
 		User user = userRepository.findByEmail(requestDto.email()).orElseGet(() -> userRepository.save(User.from(requestDto.email())));
 
+		List<Long> createdSubscriptionIds = new ArrayList<>();
 		for (String regionName : requestDto.regions()) {
 			String[] parts = regionName.split(" ");
 			String cityName = parts[0];
@@ -31,8 +35,10 @@ public class SubscriptionService {
 				.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 지역입니다: " + regionName));
 
 			if (!subscriptionRepository.existsByUserAndRegion(user, region)) {
-				subscriptionRepository.save(Subscription.from(user, region));
+				Subscription newSubscription = subscriptionRepository.save(Subscription.from(user, region));
+				createdSubscriptionIds.add(newSubscription.getId());
 			}
 		}
+		return createdSubscriptionIds;
 	}
 }
