@@ -18,7 +18,7 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
 	}
 
 	@Override
-	public void save(Subscription subscription) {
-		subscriptionJpaRepository.save(subscription);
+	public Subscription save(Subscription subscription) {
+		return subscriptionJpaRepository.save(subscription);
 	}
 }
