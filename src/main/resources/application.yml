@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql:${MYSQL_PORT}/${MYSQL_DATABASE}?serverTimezone=UTC&characterEncoding=UTF-8
-    username: ${MYSQL_USER}
-    password: ${MYSQL_ROOT_PASSWORD}
+    username: admin
+    password: 00000000
   jpa:
     hibernate:
       ddl-auto: create
