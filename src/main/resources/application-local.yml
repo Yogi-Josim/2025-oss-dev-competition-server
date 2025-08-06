@@ -1,0 +1,3 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:${DB_PORT}/${DB_DATABASE}?serverTimezone=UTC&characterEncoding=UTF-8
