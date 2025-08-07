@@ -1,5 +1,6 @@
 package com.example.yogijosim.subscription.domain;
 
+import com.example.yogijosim.common.BaseTimeEntity;
 import com.example.yogijosim.region.domain.Region;
 import com.example.yogijosim.user.domain.User;
 import jakarta.persistence.*;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Getter
-public class Subscription {
+public class Subscription extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
