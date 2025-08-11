@@ -28,11 +28,17 @@ public class CrawledData extends BaseTimeEntity {
 	@Column(name = "raw_content", nullable = false, columnDefinition = "TEXT")
 	private String rawContent;
 
+	@Column(name = "processed")
+	private boolean processed = false;
+
 	public static CrawledData from(CrawledDataSaveRequestDto request) {
 		return CrawledData.builder().
 			sourceCommunity(request.sourceCommunity())
 			.sourceUrl(request.sourceUrl())
 			.rawContent(request.rawContent())
 			.build();
+	}
+	public void completeProcessing(){
+		this.processed = true;
 	}
 }
