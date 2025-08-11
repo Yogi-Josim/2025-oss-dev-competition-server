@@ -1,6 +1,6 @@
 services:
   spring-blue:
-    image: ${DOCKER_USERNAME}/spring-app:latest
+    image: ${DOCKER_USERNAME}/${DOCKER_SPRING_IMAGE}:latest
     container_name: spring-blue
     ports:
       - "8081:8080"  # 내부 8080, 외부 8081로 매핑
@@ -12,7 +12,7 @@ services:
       - custom-network
 
   spring-green:
-    image: ${DOCKER_USERNAME}/spring-app:latest
+    image: ${DOCKER_USERNAME}/${DOCKER_SPRING_IMAGE}:latest
     container_name: spring-green
     ports:
       - "8082:8080"  # 내부 8080, 외부 8082로 매핑
