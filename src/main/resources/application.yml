@@ -18,6 +18,10 @@ springdoc:
     url: /v3/api-docs
     path: /swagger-ui.html
 
+openai:
+  api:
+    key: ${OPENAI_API_KEY}
+
 management:
   endpoints:
     web:
