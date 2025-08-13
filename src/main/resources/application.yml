@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:${DB_PORT}/${DB_DATABASE}?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://mysql:${DB_PORT}/${DB_DATABASE}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
@@ -12,6 +12,21 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
       format_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    default-encoding: UTF-8
+    properties:
+      mail:
+        mime:
+          charset: UTF-8
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
 
 springdoc:
   swagger-ui:
@@ -21,3 +36,4 @@ springdoc:
 openai:
   api:
     key: ${OPENAI_API_KEY}
+
