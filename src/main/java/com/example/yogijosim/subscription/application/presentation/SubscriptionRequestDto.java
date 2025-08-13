@@ -1,5 +1,6 @@
 package com.example.yogijosim.subscription.application.presentation;
 
+import com.example.yogijosim.mail.MailFrequency;
 import jakarta.validation.constraints.*;
 
 import java.util.List;
@@ -10,6 +11,9 @@ public record SubscriptionRequestDto(
 	String email,
 
 	@NotEmpty(message = "관심 지역을 하나 이상 선택해야 합니다.")
-	List<String> regions
+	List<String> regions,
+
+	@NotEmpty(message = "메일 받을 주기를 선택해주세요.")
+	MailFrequency frequency
 ) {
 }

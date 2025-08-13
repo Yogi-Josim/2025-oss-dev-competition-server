@@ -1,6 +1,7 @@
 package com.example.yogijosim.subscription.domain;
 
 import com.example.yogijosim.common.BaseTimeEntity;
+import com.example.yogijosim.mail.MailFrequency;
 import com.example.yogijosim.region.domain.Region;
 import com.example.yogijosim.user.domain.User;
 import jakarta.persistence.*;
@@ -27,10 +28,15 @@ public class Subscription extends BaseTimeEntity {
 	@JoinColumn(name = "region_id", nullable = false)
 	private Region region;
 
-	public static Subscription from(User user, Region region) {
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private MailFrequency mailFrequency;
+
+	public static Subscription from(User user, Region region, MailFrequency mailFrequency) {
 		return Subscription.builder()
 			.user(user)
 			.region(region)
+			.mailFrequency(mailFrequency)
 			.build();
 	}
 }

@@ -35,7 +35,7 @@ public class SubscriptionService {
 				.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 지역입니다: " + regionName));
 
 			if (!subscriptionRepository.existsByUserAndRegion(user, region)) {
-				Subscription newSubscription = subscriptionRepository.save(Subscription.from(user, region));
+				Subscription newSubscription = subscriptionRepository.save(Subscription.from(user, region,requestDto.frequency()));
 				createdSubscriptionIds.add(newSubscription.getId());
 			}
 		}
