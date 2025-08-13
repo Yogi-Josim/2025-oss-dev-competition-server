@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/cicd-practice
+cd ~/docker/
 
 echo "[INFO] Pulling and starting container: $NEXT_APP"
 
