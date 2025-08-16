@@ -1,5 +1,8 @@
 package com.example.yogijosim.incident.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum DangerCategory {
 	NATURAL_DISASTER("자연 재해"),
 	VIOLENT_CRIME("칼부림/총기"),

@@ -2,6 +2,7 @@ package com.example.yogijosim.data.domain;
 
 import com.example.yogijosim.common.BaseTimeEntity;
 import com.example.yogijosim.data.application.CrawledDataSaveRequestDto;
+import com.example.yogijosim.region.domain.Region;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,10 @@ public class CrawledData extends BaseTimeEntity {
 	@Column(name = "raw_content", nullable = false, columnDefinition = "TEXT")
 	private String rawContent;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "region_id")
+	private Region region;
+
 	@Column(name = "processed")
 	private boolean processed = false;
 
@@ -36,6 +41,7 @@ public class CrawledData extends BaseTimeEntity {
 			sourceCommunity(request.sourceCommunity())
 			.sourceUrl(request.sourceUrl())
 			.rawContent(request.rawContent())
+			.region(request.region())
 			.build();
 	}
 	public void completeProcessing(){

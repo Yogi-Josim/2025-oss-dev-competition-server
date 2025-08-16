@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #d9534f; background-color: #fcf8f8;">
+
+    <div style="text-align: center; padding: 20px 0; border-bottom: 1px solid #ddd;">
+        <img src='./' alt="YogiJosim Logo" style="max-width: 150px; height: auto;">
+    </div>
+
+    <div style="padding: 20px; background-color: #ffffff;">
+        <h2 style="font-size: 24px; color: #d9534f; text-align: center;">🚨 긴급 위험 정보 발생</h2>
+        <p style="font-size: 16px; color: #555555; line-height: 1.6; text-align: center;">
+            구독하신 지역에 높은 위험도의 사건이 발생했습니다! 즉시 확인하고 안전에 각별히 유의하시기 바랍니다.
+        </p>
+
+        <div style="margin-top: 20px; padding: 20px; border: 2px solid #d9534f; border-radius: 8px; background-color: #fffafa;">
+            <h3 style="font-size: 20px; color: #d9534f; margin: 0 0 10px 0;" th:text="${incident.summary}">
+                사건 요약 제목
+            </h3>
+            <p style="font-size: 16px; color: #333333; margin: 0; line-height: 1.8;">
+                <strong>위치:</strong> <span th:text="${incident.location}"></span><br>
+                <strong>종류:</strong> <span th:text="${incident.category.description}"></span><br>
+                <strong>위험도:</strong> <strong style="color: #d9534f;" th:text="${incident.dangerLevel}"></strong> / 5
+            </p>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 20px; font-size: 12px; color: #777;">
+        <p>본 메일은 여기조심 서비스 구독자에게 발송되는 메일입니다.</p>
+        <p><a href="#" style="color: #0012ce; text-decoration: none;">구독 취소</a></p>
+    </div>
+</div>
+</body>
+</html>
