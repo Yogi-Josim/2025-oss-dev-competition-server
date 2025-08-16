@@ -13,7 +13,7 @@ public record SubscriptionRequestDto(
 	@NotEmpty(message = "관심 지역을 하나 이상 선택해야 합니다.")
 	List<String> regions,
 
-	@NotEmpty(message = "메일 받을 주기를 선택해주세요.")
+	@NotNull(message = "메일 받을 주기를 선택해주세요.")
 	MailFrequency frequency
 ) {
 }

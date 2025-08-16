@@ -1,5 +1,6 @@
 package com.example.yogijosim.subscription.application.presentation.service;
 
+import com.example.yogijosim.common.JwtUtil;
 import com.example.yogijosim.region.domain.Region;
 import com.example.yogijosim.region.domain.RegionRepository;
 import com.example.yogijosim.subscription.domain.Subscription;
@@ -20,6 +21,7 @@ public class SubscriptionService {
 	private final UserRepository userRepository;
 	private final RegionRepository regionRepository;
 	private final SubscriptionRepository subscriptionRepository;
+	private final JwtUtil jwtUtil;
 
 	@Transactional
 	public List<Long> createSubscription(SubscriptionRequestDto requestDto) {
@@ -40,5 +42,15 @@ public class SubscriptionService {
 			}
 		}
 		return createdSubscriptionIds;
+	}
+
+	@Transactional
+	public void unsubscribe(String token) {
+		String email = jwtUtil.getEmailFromToken(token);
+		User user = userRepository.findByEmail(email)
+			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+
+		List<Subscription> subscriptions = subscriptionRepository.findByUser(user);
+		subscriptions.forEach(Subscription::deactivate);
 	}
 }

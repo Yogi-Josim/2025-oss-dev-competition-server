@@ -32,6 +32,14 @@ public class Subscription extends BaseTimeEntity {
 	@Column(nullable = false)
 	private MailFrequency mailFrequency;
 
+	@Builder.Default
+	@Column(nullable = false)
+	private boolean isActive = true;
+
+	public void deactivate() {
+		this.isActive = false;
+	}
+
 	public static Subscription from(User user, Region region, MailFrequency mailFrequency) {
 		return Subscription.builder()
 			.user(user)

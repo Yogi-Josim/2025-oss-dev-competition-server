@@ -14,4 +14,6 @@ public interface SubscriptionJpaRepository extends JpaRepository<Subscription, L
 	List<Subscription> findByMailFrequency(MailFrequency mailFrequency);
 
 	List<Subscription> findByRegion(Region region);
+
+	List<Subscription> findByUser(User user);
 }
