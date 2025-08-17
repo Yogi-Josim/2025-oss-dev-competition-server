@@ -5,6 +5,7 @@ import com.example.yogijosim.region.domain.RegionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,5 +16,10 @@ public class RegionRepositoryImpl implements RegionRepository {
 	@Override
 	public Optional<Region> findByCityNameAndDistrictName(String cityName, String districtName) {
 		return regionJpaRepository.findByCityNameAndDistrictName(cityName, districtName);
+	}
+
+	@Override
+	public List<Region> findAll() {
+		return regionJpaRepository.findAll();
 	}
 }
