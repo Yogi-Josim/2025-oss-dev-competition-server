@@ -36,6 +36,10 @@ public class Subscription extends BaseTimeEntity {
 	@Column(nullable = false)
 	private boolean isActive = true;
 
+	public void activate() {
+		this.isActive = true;
+	}
+
 	public void deactivate() {
 		this.isActive = false;
 	}
