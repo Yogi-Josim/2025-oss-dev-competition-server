@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/subscriptions")
@@ -22,8 +23,8 @@ public class SubscriptionController {
 	}
 
 	@DeleteMapping("/unsubscribe")
-	public ResponseEntity<String> unsubscribe(@RequestParam("token") String token) {
+	public ResponseEntity<Map<String, String>> unsubscribe(@RequestParam("token") String token) {
 		subscriptionService.unsubscribe(token);
-		return ResponseEntity.ok("구독이 성공적으로 취소되었습니다. 더 이상 메일이 발송되지 않습니다.");
+		return ResponseEntity.ok(Map.of("message", "구독이 성공적으로 취소되었습니다. 더 이상 메일이 발송되지 않습니다."));
 	}
 }
