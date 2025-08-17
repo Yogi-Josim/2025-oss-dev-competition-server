@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -33,5 +34,15 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
 	@Override
 	public List<Subscription> findByRegion(Region region) {
 		return subscriptionJpaRepository.findByRegion(region);
+	}
+
+	@Override
+	public List<Subscription> findByUser(User user) {
+		return subscriptionJpaRepository.findByUser(user);
+	}
+
+	@Override
+	public Optional<Subscription> findByUserAndRegion(User user, Region region) {
+		return subscriptionJpaRepository.findByUserAndRegion(user, region);
 	}
 }

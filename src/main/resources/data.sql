@@ -1,3 +1,5 @@
+use yogi_josim;
+
 -- 서울특별시
 INSERT INTO region (city_name, district_name) VALUES ('서울특별시', '강남구');
 INSERT INTO region (city_name, district_name) VALUES ('서울특별시', '강동구');

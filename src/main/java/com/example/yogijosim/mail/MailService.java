@@ -1,5 +1,6 @@
 package com.example.yogijosim.mail;
 
+import com.example.yogijosim.common.JwtUtil;
 import com.example.yogijosim.incident.domain.Incident;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class MailService {
 
 	private final JavaMailSender javaMailSender;
 	private final SpringTemplateEngine templateEngine;
+	private final JwtUtil jwtUtil;
 
 	public void sendPeriodicReport(String toEmail, List<Incident> incidents) {
 		String subject = "[여기조심] 구독하신 지역의 주간/일일 위험 정보 리포트입니다.";
@@ -33,13 +35,15 @@ public class MailService {
 	private void sendMail(String toEmail, String subject, String templateName, Map<String, Object> variables) {
 		try {
 			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
 			helper.setTo(toEmail);
 			helper.setSubject(subject);
 
+			String unsubscribeToken = jwtUtil.generateUnsubscribeToken(toEmail);
 			Context context = new Context();
 			context.setVariables(variables);
+			context.setVariable("unsubscribeToken", unsubscribeToken);
 
 			String html = templateEngine.process(templateName, context);
 			helper.setText(html, true);

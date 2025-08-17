@@ -1,5 +1,6 @@
 package com.example.yogijosim.subscription.application.presentation.service;
 
+import com.example.yogijosim.common.JwtUtil;
 import com.example.yogijosim.region.domain.Region;
 import com.example.yogijosim.region.domain.RegionRepository;
 import com.example.yogijosim.subscription.domain.Subscription;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,12 +22,13 @@ public class SubscriptionService {
 	private final UserRepository userRepository;
 	private final RegionRepository regionRepository;
 	private final SubscriptionRepository subscriptionRepository;
+	private final JwtUtil jwtUtil;
 
 	@Transactional
 	public List<Long> createSubscription(SubscriptionRequestDto requestDto) {
 		User user = userRepository.findByEmail(requestDto.email()).orElseGet(() -> userRepository.save(User.from(requestDto.email())));
 
-		List<Long> createdSubscriptionIds = new ArrayList<>();
+		List<Long> subscriptionsIds = new ArrayList<>();
 		for (String regionName : requestDto.regions()) {
 			String[] parts = regionName.split(" ");
 			String cityName = parts[0];
@@ -34,11 +37,28 @@ public class SubscriptionService {
 			Region region = regionRepository.findByCityNameAndDistrictName(cityName, districtName)
 				.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 지역입니다: " + regionName));
 
-			if (!subscriptionRepository.existsByUserAndRegion(user, region)) {
-				Subscription newSubscription = subscriptionRepository.save(Subscription.from(user, region,requestDto.frequency()));
-				createdSubscriptionIds.add(newSubscription.getId());
+			Optional<Subscription> existingSubscription = subscriptionRepository.findByUserAndRegion(user, region);
+			if (existingSubscription.isPresent()) {
+				Subscription subscription = existingSubscription.get();
+				if (!subscription.isActive()) {
+					subscription.activate();
+				}
+				subscriptionsIds.add(subscription.getId());
+			}else{
+				Subscription newSubscription = subscriptionRepository.save(Subscription.from(user, region, requestDto.frequency()));
+				subscriptionsIds.add(newSubscription.getId());
 			}
 		}
-		return createdSubscriptionIds;
+		return subscriptionsIds;
+	}
+
+	@Transactional
+	public void unsubscribe(String token) {
+		String email = jwtUtil.getEmailFromToken(token);
+		User user = userRepository.findByEmail(email)
+			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+
+		List<Subscription> subscriptions = subscriptionRepository.findByUser(user);
+		subscriptions.forEach(Subscription::deactivate);
 	}
 }

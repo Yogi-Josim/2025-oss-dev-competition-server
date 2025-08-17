@@ -7,6 +7,7 @@ import com.example.yogijosim.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SubscriptionJpaRepository extends JpaRepository<Subscription, Long> {
 	boolean existsByUserAndRegion(User user, Region region);
@@ -14,4 +15,8 @@ public interface SubscriptionJpaRepository extends JpaRepository<Subscription, L
 	List<Subscription> findByMailFrequency(MailFrequency mailFrequency);
 
 	List<Subscription> findByRegion(Region region);
+
+	List<Subscription> findByUser(User user);
+
+	Optional<Subscription> findByUserAndRegion(User user, Region region);
 }

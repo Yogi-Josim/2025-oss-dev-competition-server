@@ -27,7 +27,7 @@ public class GptService {
 		}
 		  만약 텍스트가 사건/사고와 관련이 없다면, summary와 location은 "N/A"로, danger_level과 reliability는 0으로, category는 "ETC"로 채워서 답변해줘.
 		""";
-	private static final String model = "gpt-4o";
+	private static final String model = "gpt-5-mini";
 
 	public IncidentAnalysisDto analyze(String rawContent) {
 		List<MessageDto> messages = List.of(
