@@ -2,6 +2,7 @@ package com.example.yogijosim.data.application;
 
 import com.example.yogijosim.region.domain.Region;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public record CrawledDataSaveRequestDto(
 	@NotEmpty
@@ -13,7 +14,7 @@ public record CrawledDataSaveRequestDto(
 	@NotEmpty
 	String rawContent,
 
-	@NotEmpty
+	@NotNull
 	Region region
 ) {
 }
