@@ -14,7 +14,7 @@ public interface SubscriptionRepository {
 
 	List<Subscription> findSubscriptionWithDetailsByFrequency(MailFrequency frequency);
 
-	List<Subscription> findByRegion(Region region);
+	List<Subscription> findActiveSubscriptionsByRegionWithUser(Region region);
 
 	List<Subscription> findByUser(User user);
 

@@ -54,7 +54,7 @@ public class IncidentProcessingScheduler {
 		Region incidentRegion = incident.getCrawledData().getRegion();
 		if(incidentRegion == null) return;
 
-		List<Subscription> subscriptions = subscriptionRepository.findByRegion(incidentRegion);
+		List<Subscription> subscriptions = subscriptionRepository.findActiveSubscriptionsByRegionWithUser(incidentRegion);
 		subscriptions.forEach(sub-> {
 			String userEmail = sub.getUser().getEmail();
 			mailService.sendEmergencyReport(userEmail, incident);

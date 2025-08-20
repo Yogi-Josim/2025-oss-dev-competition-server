@@ -32,8 +32,8 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
 	}
 
 	@Override
-	public List<Subscription> findByRegion(Region region) {
-		return subscriptionJpaRepository.findByRegion(region);
+	public List<Subscription> findActiveSubscriptionsByRegionWithUser(Region region) {
+		return subscriptionJpaRepository.findActiveSubscriptionsByRegionWithUser(region);
 	}
 
 	@Override

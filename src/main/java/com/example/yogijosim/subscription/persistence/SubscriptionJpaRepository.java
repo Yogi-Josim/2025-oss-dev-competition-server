@@ -5,6 +5,7 @@ import com.example.yogijosim.mail.MailFrequency;
 import com.example.yogijosim.subscription.domain.Subscription;
 import com.example.yogijosim.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +17,10 @@ public interface SubscriptionJpaRepository extends JpaRepository<Subscription, L
 		"WHERE s.mailFrequency = :frequency AND s.isActive = true")
 	List<Subscription> findSubscriptionWithDetailsByFrequency(MailFrequency mailFrequency);
 
-	List<Subscription> findByMailFrequency(MailFrequency mailFrequency);
-
-	List<Subscription> findByRegion(Region region);
+	@Query("SELECT s FROM Subscription s " +
+		"JOIN FETCH s.user " +
+		"WHERE s.region = :region AND s.isActive = true")
+	List<Subscription> findActiveSubscriptionsByRegionWithUser(Region region);
 
 	List<Subscription> findByUser(User user);
 
