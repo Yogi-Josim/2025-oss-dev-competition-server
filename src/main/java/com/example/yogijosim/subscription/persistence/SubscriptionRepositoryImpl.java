@@ -17,11 +17,6 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
 	private final SubscriptionJpaRepository subscriptionJpaRepository;
 
 	@Override
-	public boolean existsByUserAndRegion(User user, Region region) {
-		return subscriptionJpaRepository.existsByUserAndRegion(user, region);
-	}
-
-	@Override
 	public Subscription save(Subscription subscription) {
 		return subscriptionJpaRepository.save(subscription);
 	}

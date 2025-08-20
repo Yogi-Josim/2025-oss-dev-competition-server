@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SubscriptionRepository {
-	boolean existsByUserAndRegion(User user, Region region);
-
 	Subscription save(Subscription subscription);
 
 	List<Subscription> findSubscriptionWithDetailsByFrequency(MailFrequency frequency);
