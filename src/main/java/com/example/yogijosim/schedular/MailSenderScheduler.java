@@ -37,7 +37,7 @@ public class MailSenderScheduler {
 	}
 
 	private void sendReportForFrequency(MailFrequency frequency, LocalDateTime startTime, LocalDateTime endTime) {
-		Map<String, List<Subscription>> subsByEmail = subscriptionRepository.findByMailFrequency(frequency)
+		Map<String, List<Subscription>> subsByEmail = subscriptionRepository.findSubscriptionWithDetailsByFrequency(frequency)
 			.stream()
 			.collect(Collectors.groupingBy(sub -> sub.getUser().getEmail()));
 

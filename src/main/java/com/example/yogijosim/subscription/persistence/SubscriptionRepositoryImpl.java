@@ -27,8 +27,8 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepository {
 	}
 
 	@Override
-	public List<Subscription> findByMailFrequency(MailFrequency frequency) {
-		return subscriptionJpaRepository.findByMailFrequency(frequency);
+	public List<Subscription> findSubscriptionWithDetailsByFrequency(MailFrequency frequency) {
+		return subscriptionJpaRepository.findSubscriptionWithDetailsByFrequency(frequency);
 	}
 
 	@Override

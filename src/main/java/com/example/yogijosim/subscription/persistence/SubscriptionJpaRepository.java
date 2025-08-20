@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SubscriptionJpaRepository extends JpaRepository<Subscription, Long> {
-	boolean existsByUserAndRegion(User user, Region region);
+	@Query("SELECT s FROM Subscription s " +
+		"JOIN FETCH s.user " +
+		"JOIN FETCH s.region " +
+		"WHERE s.mailFrequency = :frequency AND s.isActive = true")
+	List<Subscription> findSubscriptionWithDetailsByFrequency(MailFrequency mailFrequency);
 
 	List<Subscription> findByMailFrequency(MailFrequency mailFrequency);
 

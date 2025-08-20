@@ -12,7 +12,7 @@ public interface SubscriptionRepository {
 
 	Subscription save(Subscription subscription);
 
-	List<Subscription> findByMailFrequency(MailFrequency frequency);
+	List<Subscription> findSubscriptionWithDetailsByFrequency(MailFrequency frequency);
 
 	List<Subscription> findByRegion(Region region);
 
