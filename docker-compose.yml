@@ -36,6 +36,18 @@ services:
       TZ: Asia/Seoul
       LANG: C.UTF-8
 
+  scraper-api:
+    image: ${DOCKER_USERNAME}/yogi-josim-fastapi-scraper:latest
+    container_name: scraper-api
+    ports:
+      - "8001:8000"
+    networks:
+      - custom-network
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    shm_size: '2gb'
+    restart: always
+
 networks:
   custom-network:
     driver: bridge
